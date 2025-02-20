@@ -16,14 +16,26 @@ export const CalculatorSlice = createSlice({
       state.value += action.payload;
     },
     addition: (state) => {
-      const numbersArr = state.value.split('+');
-      const result = numbersArr.reduce((acc, number) => {
-        return acc + +number;
-      },0)
-      state.value = result.toString();
+      if (state.value.includes('+')) {
+        const numbersArr = state.value.split('+');
+        const result = numbersArr.reduce((acc, number) => {
+          return acc + +number;
+        }, 0)
+        state.value = result.toString();
+      }
+    },
+    difference: (state: CalculatorState) => {
+      if (state.value.includes('-')) {
+        const numbersArr = state.value.split('-');
+        const result = numbersArr.reduce((acc, number, i) => {
+          if (i === 0) return +number;
+          return acc - +number;
+        }, 0)
+        state.value = result.toString();
+      }
     }
   }
 });
 
 export const calculatorReducer = CalculatorSlice.reducer;
-export const {add,addition } = CalculatorSlice.actions;
+export const {add, addition, difference } = CalculatorSlice.actions;
