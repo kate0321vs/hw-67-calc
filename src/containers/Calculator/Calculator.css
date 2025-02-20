@@ -1,0 +1,31 @@
+.container {
+  text-align: center;
+}
+.display {
+  font-size: 24px;
+  letter-spacing: 10px;
+  background: white;
+  padding: 10px;
+  width: 175px;
+  height: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 200px;
+  margin: auto;
+}
+.key {
+  font-size: 1.5em;
+  padding: 15px;
+  background: white;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 5px;
+}
