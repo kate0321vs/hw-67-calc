@@ -5,7 +5,7 @@ interface CalculatorState {
 }
 
 const initialState: CalculatorState = {
-  value: '',
+  value: '0',
 }
 
 export const CalculatorSlice = createSlice({
@@ -13,6 +13,7 @@ export const CalculatorSlice = createSlice({
   initialState,
   reducers: {
     add: (state: CalculatorState, action: PayloadAction<string>) => {
+      if (state.value === '0') state.value = '';
       state.value += action.payload;
     },
     addition: (state) => {
@@ -53,9 +54,19 @@ export const CalculatorSlice = createSlice({
         }, 0)
         state.value = result.toString();
       }
+    },
+    remove: (state: CalculatorState) => {
+      // if (state.value === '0') return;
+      if (state.value.length === 1) {
+        state.value = '0'
+        return
+      }
+      const arr = state.value.split('')
+      arr.splice(arr.length - 1, 1)
+      state.value = arr.join('')
     }
   }
 });
 
 export const calculatorReducer = CalculatorSlice.reducer;
-export const {add, addition, difference, multiplication, division } = CalculatorSlice.actions;
+export const {add, addition, difference, multiplication, division, remove } = CalculatorSlice.actions;
