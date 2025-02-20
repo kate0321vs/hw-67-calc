@@ -1,20 +1,22 @@
 import "./Calculator.css"
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store.ts';
-import { add, addition, difference } from './CalculatorSlice.ts';
+import { add, addition, difference, multiplication, division } from './CalculatorSlice.ts';
 
 const Calculator = () => {
   const numbers = ['1','2','3','4','5','6','7','8','9','+','0', '-', '*', '/'];
   const dispatch = useDispatch();
   const calculatorValue = useSelector((state: RootState) => state.calculator.value);
 
-  console.log(calculatorValue)
-
   const resultOfOperation = () => {
     if (calculatorValue.includes('+')) {
       return dispatch(addition());
     } else if (calculatorValue.includes('-')) {
       return dispatch(difference());
+    } else if (calculatorValue.includes('*')) {
+      return dispatch(multiplication());
+    } else if (calculatorValue.includes('/')) {
+      return dispatch(division());
     }
   }
 
