@@ -8,6 +8,15 @@ const initialState: CalculatorState = {
   value: '0',
 }
 
+const error = (state:CalculatorState ) => {
+  if (isNaN(Number(state.value)) || state.value.trim() === '') {
+    state.value = '0';
+  }
+  if (state.value === 'Infinity') {
+    state.value = 'NotDefined';
+  }
+}
+
 export const CalculatorSlice = createSlice({
   name: 'calculator',
   initialState,
@@ -17,6 +26,7 @@ export const CalculatorSlice = createSlice({
       state.value += action.payload;
     },
     addition: (state) => {
+      // error(state);
       if (state.value.includes('+')) {
         const numbersArr = state.value.split('+');
         const result = numbersArr.reduce((acc, number) => {
@@ -24,6 +34,7 @@ export const CalculatorSlice = createSlice({
         }, 0)
         state.value = result.toString();
       }
+      error(state);
     },
     difference: (state: CalculatorState) => {
       if (state.value.includes('-')) {
@@ -34,8 +45,10 @@ export const CalculatorSlice = createSlice({
         }, 0)
         state.value = result.toString();
       }
+      error(state);
     },
     multiplication: (state: CalculatorState) => {
+
       if (state.value.includes('*')) {
         const numbersArr = state.value.split('*');
         const result = numbersArr.reduce((acc, number, i) => {
@@ -44,6 +57,7 @@ export const CalculatorSlice = createSlice({
         }, 0)
         state.value = result.toString();
       }
+      error(state);
     },
     division: (state: CalculatorState) => {
       if (state.value.includes('/')) {
@@ -54,9 +68,9 @@ export const CalculatorSlice = createSlice({
         }, 0)
         state.value = result.toString();
       }
+      error(state);
     },
     remove: (state: CalculatorState) => {
-      // if (state.value === '0') return;
       if (state.value.length === 1) {
         state.value = '0'
         return
@@ -64,7 +78,7 @@ export const CalculatorSlice = createSlice({
       const arr = state.value.split('')
       arr.splice(arr.length - 1, 1)
       state.value = arr.join('')
-    }
+    },
   }
 });
 
